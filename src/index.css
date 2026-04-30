@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes yoyo {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.scroll-chevron {
+  animation: yoyo 1.5s infinite;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.font-display {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .car-card-inner {
+    flex-direction: column !important;
+    padding: 0 5% !important;
+    gap: 32px !important;
+  }
+  .car-card-image {
+    width: 100% !important;
+    height: 280px !important;
+  }
+  .car-card-text {
+    width: 100% !important;
+  }
+  .car-model-name {
+    font-size: 42px !important;
+  }
+}
