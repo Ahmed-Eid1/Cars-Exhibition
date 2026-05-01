@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import HeroPage from './pages/HeroPage'
-import EngineSection from './components/EngineSection'
 import CarGallery from './components/CarGallery'
-import PistonBackground from './components/PistonBackground'
-import { useScrollProgress } from './hooks/useScrollProgress'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -14,7 +11,6 @@ export default function App() {
 
   return (
     <div style={{ background: '#000', minHeight: '100vh' }}>
-      <PistonBackground />
 
       <div
         style={{
@@ -30,7 +26,6 @@ export default function App() {
       />
 
       <HeroPage />
-      <EngineSection scrollProgress={scrollProgress} />
       <CarGallery />
     </div>
   )
