@@ -108,9 +108,6 @@ export default function CarGallery() {
 
       {/* PART B: Car sections */}
       {carSections.map((section, sectionIndex) => {
-        const isLast = sectionIndex === carSections.length - 1;
-        const nextSection = !isLast ? carSections[sectionIndex + 1] : null;
-
         return (
           <div
             key={section.id}
@@ -118,75 +115,50 @@ export default function CarGallery() {
             ref={(el) => (sectionRefs.current[sectionIndex] = el)}
             data-index={sectionIndex}
             className="car-section"
-            style={{
-              position: 'relative',
-              margin: 0,
-              padding: '0px',
-              overflow: 'hidden',
-            }}
+            style={{ position: 'relative', margin: 0, padding: 0 }}
           >
-            {/* SECTION HEADER - positioned between first and second car */}
+            {/* 1. THE HEADER: Now transparent and floating */}
             <div
               className="car-section-header"
               style={{
-                width: '80%',
-                padding: '60px 20px',
-                position: 'sticky',
-                top: '0',
-                zIndex: 100,
-                textAlign: 'center',
-                // Gradient background: upper half from current section, lower half from next section
-
+                width: '100%',
+                minHeight: '40vh', // Adjust height to control how much of the first car shows
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                position: 'relative',
+                zIndex: 40, // Keep text above the card
+                pointerEvents: 'none', // Allows clicking "through" the header to the car
               }}
             >
-              <div
+              <h2 style={{
+                fontFamily: "'Bebas Neue', sans-serif",
+                fontSize: '120px',
+                color: '#fff',
+                margin: '18px 0 0 0',
+                textShadow: '0 10px 30px rgba(0,0,0,0.8)' // High contrast is key here
+              }}>
+                {section.label}
+              </h2>
+
+              <p
                 style={{
-                  position: 'relative',
-                  zIndex: 2,
-                  maxWidth: '800px',
-                  margin: '0 auto',
-                  padding: '20px',
-                  background: 'rgba(0,0,0,0.4)',
-                  backdropFilter: 'blur(5px)',
-                  borderRadius: '8px',
-                }}
-              >
-                <h2
-                  className="section-label"
-                  style={{
-                    fontFamily: "'Bebas Neue', sans-serif",
-                    fontSize: '72px',
-                    color: '#fff',
-                    marginBottom: '16px',
-                    textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-                  }}
-                >
-                  {section.label}
-                </h2>
-                <p
-                  className="section-tagline"
-                  style={{
-                    fontSize: '13px',
-                    color: 'rgba(255,255,255,0.8)',
-                    lineHeight: 1.6,
-                    textShadow: '0 1px 5px rgba(0,0,0,0.5)',
-                  }}
-                >
-                  {section.tagline}
-                </p>
-              </div>
+                  color: 'rgba(255,255,255,0.7)',
+                  marginTop: '-35px',
+                  letterSpacing: '2px'
+                }}>
+                {section.tagline}
+              </p>
             </div>
 
-            {/* Car cards container */}
+            {/* 2. THE CARDS CONTAINER: Pulled up with negative margin */}
             <div
               className="car-section-cards"
               style={{
-                display: 'flex',
-                flexDirection: 'column',
+                marginTop: '-40vh', // This MUST match the minHeight of the header above
                 position: 'relative',
                 zIndex: 10,
-                margin: 0,
-                padding: 0,
               }}
             >
               {section.cars.map((car, carIndex) => (
