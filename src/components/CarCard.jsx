@@ -21,7 +21,7 @@ export default function CarCard({ car, index, sectionAccentColor }) {
       ease: [0.16, 1, 0.3, 1],
       scrollTrigger: {
         trigger: imageRef.current,
-        start: 'top 80%',
+        start: 'top 70%',
       },
     });
 
@@ -50,8 +50,8 @@ export default function CarCard({ car, index, sectionAccentColor }) {
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        padding: 0,
-        margin: 0,
+        padding: 120,
+        margin: '20px 0',
         position: 'relative',
         overflow: 'hidden',
         flexDirection: isEven ? 'row' : 'row-reverse',
@@ -76,20 +76,7 @@ export default function CarCard({ car, index, sectionAccentColor }) {
       />
 
       {/* Background decorative circle */}
-      <div
-        className="car-card-decor"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: isEven ? '50%' : 'auto',
-          right: isEven ? 'auto' : '50%',
-          width: '400px',
-          height: '400px',
-          borderRadius: '50%',
-          border: '1px solid rgba(255,255,255,0.06)',
-          transform: 'translate(-50%, -50%)',
-        }}
-      />
+
 
       {/* Image side */}
       <div

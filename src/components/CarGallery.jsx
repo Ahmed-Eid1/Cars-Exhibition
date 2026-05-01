@@ -121,7 +121,7 @@ export default function CarGallery() {
             style={{
               position: 'relative',
               margin: 0,
-              padding: 0,
+              padding: '0px',
               overflow: 'hidden',
             }}
           >
@@ -129,7 +129,7 @@ export default function CarGallery() {
             <div
               className="car-section-header"
               style={{
-                width: '100%',
+                width: '80%',
                 padding: '60px 20px',
                 position: 'sticky',
                 top: '0',

@@ -1,0 +1,235 @@
+TURBONOS
+EXHIBITION WEBSITE
+Product Requirements Document  |  v1.0
+
+
+Project NameTurboNOS — Automotive Exhibition WebsiteDocument TypeProduct Requirements Document (PRD)Version1.0StackReact + Vite + Tailwind + Three.jsTotal Cars18 vehicles across 4 nationality sectionsStatusIn Development
+
+
+1. Project Overview
+TurboNOS is a cinematic, scroll-driven automotive exhibition website. It presents 18 iconic cars grouped by nationality across 4 sections. The experience is built around three core moments: a dramatic hero landing, a 3D engine explosion driven by scroll, and an alternating car gallery with animated text reveals.
+
+1.1 Vision
+A website that feels like a movie trailer — dark, cinematic, and kinetic. Every element earns its place through motion. The visitor does not browse a catalogue; they experience an exhibition.
+
+1.2 Core Experience Pillars
+• Cinematic entry — logo letters fly in from random directions and assemble on load
+• Gallery drama — each car card slides in from alternating sides with word-by-word text reveal
+• 8% blurry background of the same image used in the card runs behind every section
+
+1.3 Target Audience
+• Automotive enthusiasts and collectors
+• Car culture communities (JDM, muscle, European performance)
+• Visitors to physical or virtual automotive exhibitions
+
+2. Technology Stack
+
+CategoryPackagePurposeCoreReact + ViteFrontend framework and build toolCoreTailwind CSS v3Utility-first stylingAnimationGSAP + @gsap/reactTimeline animations, letter fly-in, scroll syncAnimationGSAP ScrollTriggerScroll-driven animation engineAnimationFramer MotionReact-native slide-in animations for car cardsRoutingreact-router-domClient-side routingFontBebas Neue (Google Fonts)Primary display typeface
+2.1 Install Command
+npm install gsap @gsap/react three @react-three/fiber @react-three/drei leva framer-motion react-router-dom
+
+2.2 Key Configuration
+• index.css body: background #000, color #fff, overflow-x hidden
+• Bebas Neue loaded via @import Google Fonts in index.css
+• Vite serves /public folder as static root — all assets accessed at /filename
+• Canvas dpr: [1, 1.5], performance: { min: 0.5 } for smooth 3D
+
+3. Project File Structure
+turbo-nos/
+??? public/
+?   ??? hero.jpg              ? Food Market cars photo (hero background)
+?   ??? logo.png              ? TurboNOS logo PNG
+?   ?
+?   ??? cars/                 ? All car photos (.jpg)
+?       ??? charger-rt.jpg
+?       ??? ... (18 images total)
+??? src/
+?   ??? components/
+?   ?   
+?   ?
+?   ?   ??? CarGallery.jsx    ? 4-section gallery with tab bar
+?   ?   ??? CarCard.jsx       ? Individual car card component
+?   ?   
+?   ??? hooks/
+?   ?   
+?   ??? data/
+?   ?   ??? cars.js           ? All 18 car entries
+?   ??? pages/
+?   ?   ??? HeroPage.jsx      ? Hero with letter animation
+?   ??? App.jsx               ? Master layout + scroll progress bar
+?   ??? main.jsx
+??? package.json
+??? vite.config.js
+
+4. Page Sections
+4.1 Hero Page — HeroPage.jsx
+Background
+• Full-bleed image: /public/hero.jpg (Fast & Furious Food Market photo)
+• Gradient overlay: rgba(0,0,0,0.55) top to rgba(0,0,0,0.85) bottom
+• Height: 100vh, no scroll on hero itself
+
+Logo Letter Animation
+• Text "TurboNOS" split into individual <span> elements
+• Each character: className="hero-letter"
+• GSAP gsap.from() animates each span FROM random x (-600 to 600), y (-400 to 400), rotation (-180 to 180), opacity 0
+• TO natural position: x:0, y:0, rotation:0, opacity:1
+• Stagger: 0.06s per character, ease: "expo.out", duration: 1.2s
+• After letters land (delay 1.0s): logo PNG fades in at top-left replacing text
+• Logo PNG final size: height 52px, position: top 32px left 32px
+
+Tagline Block
+• Text: "Where legends are forged in asphalt and fire."
+• Font: Bebas Neue 22px, letter-spacing 0.18em, color rgba(255,255,255,0.75)
+• Position: absolute, bottom 18%, centered
+• Animates in: delay 1.6s, opacity 0?1, y 20?0, duration 1.0s ease "power2.out"
+• "SCROLL TO ENTER" below in 11px, letter-spacing 0.3em, opacity 0.45
+• Animated CSS chevron bouncing below tagline (no emoji, pure CSS)
+
+Scroll CTA
+• Pulsing red circle at bottom-center (bottom: 40px)
+• Contains downward chevron SVG
+• On click: smooth scrolls to #engine-section
+
+
+4.5 Car Gallery — CarGallery.jsx + CarCard.jsx
+Sticky Tab Bar
+• 4 pills: American / German / Italian / Japanese
+• Position: sticky, top 0, z-index 100
+• Background: rgba(0,0,0,0.85), backdrop-filter blur(12px)
+• Active tab: white background, black text, font-weight 500
+• Inactive: transparent, rgba(255,255,255,0.5) text
+• Font: Bebas Neue 13px, letter-spacing 0.12em
+• Click: smooth-scroll to section anchor
+• Auto-update active tab via IntersectionObserver
+
+Section Headers
+• Decorative background label: Bebas Neue 72px, rgba(255,255,255,0.06)
+• Section tagline: 13px, rgba(255,255,255,0.4)
+• 1px horizontal rule: rgba(255,255,255,0.1)
+
+Car Card Layout (CarCard.jsx)
+• Props: { car, index, sectionAccentColor }
+• min-height: 100vh, display flex, align-items center
+• Even index (0,2,4...): image LEFT, text RIGHT (flex-row)
+• Odd index (1,3,5...): image RIGHT, text LEFT (flex-row-reverse)
+• Gap: 80px, padding: 0 10%
+
+Image Animation
+• GSAP: initial x: ±100, opacity 0 ? whileInView x:0, opacity:1
+• transition: duration 0.9s, ease [0.16, 1, 0.3, 1] (custom spring)
+• viewport: once: true, amount: 0.3
+• Image size: width 100%, height 560px, object-fit cover
+• Mobile fallback: onError sets background #111, opacity 0.3
+
+Text Block
+• Tag pill: 10px uppercase, sectionAccentColor at 15% opacity background
+• Brand: Bebas Neue 16px, rgba(255,255,255,0.45)
+• Model name: Bebas Neue 64px, line-height 1, white
+• Year: 13px, rgba(255,255,255,0.3)
+• Accent line: 40px wide, 2px tall, sectionAccentColor, margin 24px 0
+• Brief text: 15px, line-height 1.8, rgba(255,255,255,0.65)
+• Word-by-word reveal: brief split by spaces, each word wrapped in <span class="word">
+• GSAP: gsap.from(".word", { opacity:0, y:12, stagger:0.025, duration:0.5 })
+• ScrollTrigger: start "top 80%"
+• Border: 3px solid sectionAccentColor — left border on even cards, right on odd
+
+Mobile Responsive
+• max-width 768px: flex-direction column, padding 0 5%, gap 32px
+• Image height: 280px on mobile
+• Model name font: 42px on mobile
+
+4.6 App.jsx — Master Layout
+• Imports useScrollProgress hook ? passes scrollProgress to EngineSection
+• Renders: PistonBackground (fixed behind all) ? HeroPage ? EngineSection ? CarGallery
+• Scroll progress bar: position fixed, top 0, height 2px, z-index 9999
+• Bar width: scrollProgress * 100 + "%"
+• Bar gradient: linear-gradient(to right, #E24B4A, #EF9F27)
+• IMPORTANT: EngineSection imported from ./components/EngineSection — NOT ./pages/EngineSection
+
+5. Car Exhibition Data
+All 18 cars are defined in src/data/cars.js as an array exported as carSections. Each section has: id, label, tagline, accentColor, and a cars array.
+
+IDBrandModelYearSectionTagAccent Coloram-01DodgeCharger R/T1970AmericanDom's Weapon#1a1a1aam-02DodgeChallenger Hellcat2020AmericanThe Hellcat#E24B4Aam-03FordGT40 Mk II1966AmericanLe Mans Legend#0A3161am-04FordMustang Shelby GT5001967AmericanShelby's Stallion#C8A951de-01BMWM4 Competition2023GermanThe Argument#0066B1de-02AudiRS6 Avant2022GermanWolf in Wool#BB0A21de-03AudiRS3 Sportback2022GermanFive-Cylinder Fury#BB0A21de-04Mercedes-AMGE63 S AMG2022GermanExecutive Madness#2D2D2Dde-05Mercedes-AMG300 SEL 6.81971GermanThe Red Pig#8B0000de-06Mercedes-AMGG63 AMG2023GermanArmed & Expensive#1C3A1Cde-07BMWE36 M31995GermanThe Purist#0A0A0Ade-08Porsche911 GT3 RS2023GermanLap Record#D5001Cit-01FerrariSF90 Stradale2021ItalianPrancing Into Tomorrow#CC0000it-02LamborghiniAventador SVJ2019ItalianLast V12 Scream#F5A623it-03PaganiHuayra R2022ItalianMechanical Masterpiece#C0A060jp-01NissanSkyline GT-R R321989JapaneseGodzilla#C8C8C8jp-02ToyotaSupra MK41994Japanese2JZ or Die#FF6600jp-03NissanGT-R R352009JapaneseThe Supercomputer#E8E8E8
+5.1 Car Data Schema
+{ id, model, brand, year, brief, imagePath, accentColor, origin, tag }
+
+5.2 Section Definitions
+
+AmericanaccentColor #E24B4A · tagline: "Built on asphalt, baptized in fire."GermanaccentColor #378ADD · tagline: "Engineered beyond reason."ItalianaccentColor #EF9F27 · tagline: "Where art becomes velocity."JapaneseaccentColor #9FE1CB · tagline: "Precision that borders on spiritual."
+5.3 Image Files
+All car images go in /public/cars/ with .jpg extension. Original files may be .jfif — rename to .jpg (no conversion needed, data is identical). File names must match imagePath values in cars.js exactly.
+
+6. Design System
+6.1 Color Palette
+
+Primary Red#E24B4A — scroll bar, section accents, piston accent linePrimary Orange#EF9F27 — scroll bar right end, engine point light, Italian sectionBackground#000000 — full site backgroundText Primary#FFFFFF — headings, model namesText Secondaryrgba(255,255,255,0.65) — brief textText Tertiaryrgba(255,255,255,0.45) — taglines, brand namesGhost Whitergba(255,255,255,0.06) — decorative section labelGerman Blue#378ADD — German section accentJapanese Teal#9FE1CB — Japanese section accent
+6.2 Typography
+
+Display FontBebas Neue (Google Fonts) — all headings, labels, tabs, UI textModel NamesBebas Neue 64px, line-height 1Section DecorativeBebas Neue 72px, rgba(255,255,255,0.06)Hero TitleBebas Neue — letter animation, assembled size fills viewportTaglinesBebas Neue 22px, letter-spacing 0.18emBody Text (briefs)Arial/system-ui 15px, line-height 1.8Tab PillsBebas Neue 13px, letter-spacing 0.12emScroll LabelBebas Neue 11px, letter-spacing 0.4em
+6.3 Animation Principles
+• All entrances use expo.out or custom cubic-bezier [0.16, 1, 0.3, 1] — fast start, smooth landing
+• Scroll animations use scrub: true for frame-perfect sync
+• Text reveals use word-level stagger (0.025s per word)
+• 3D lerp uses lerpSpeed * delta for frame-rate independent motion
+• No animation completes instantly — minimum duration 0.4s
+
+7. Known Issues & Critical Rules
+
+
+7.2 Scroll Progress Must Be State
+scrollProgress must be React state (useState), not a ref. Refs do not trigger re-renders, so the progress bar and SCROLL TO DETONATE opacity will not update.
+
+7.3 Import Path for EngineSection
+App.jsx must import EngineSection from ./components/EngineSection — NOT ./pages/EngineSection. The pages/ version is the old placeholder and must be deleted.
+
+7.5 Image Extensions
+Original car photos in .jfif format must be renamed to .jpg before placing in /public/cars/. The file data is identical — only the extension changes. Filenames must match imagePath values in cars.js exactly.
+
+8. Deployment
+8.1 Build Command
+npm run build
+Output goes to /dist folder. All public/ assets are copied automatically.
+
+8.2 Vercel Deploy
+1. Install Vercel CLI: npm install -g vercel
+2. Run: vercel in project root
+3. Framework: Vite (auto-detected)
+4. Build command: npm run build
+5. Output directory: dist
+6. No environment variables required
+
+8.3 Netlify Deploy
+7. Drag /dist folder to Netlify drop zone at app.netlify.com/drop
+8. Or: npm install -g netlify-cli ? netlify deploy --prod --dir dist
+
+
+9. Rebuild Checklist
+Use this checklist if starting over from scratch:
+
+9. Scaffold: npm create vite@latest turbo-nos -- --template react
+10. Install all packages (see Section 2)
+11. Configure Tailwind CSS
+12. Set index.css: black background, Bebas Neue import
+13. Create folder structure (see Section 3)
+14. Copy cars.js into src/data/
+15. Drop hero.jpg, logo.png, engine.glb into /public/
+16. Drop all car .jpg images into /public/cars/
+17. Build HeroPage.jsx with GSAP letter animation
+18. Build useScrollProgress.js hook
+19. Build PistonBackground.jsx (pure CSS)
+20. Build EngineScene.jsx (Three.js — inner EngineModel inside Canvas)
+21. Build EngineSection.jsx (300vh container)
+22. Build CarCard.jsx (alternating layout + GSAP word reveal)
+23. Build CarGallery.jsx (4 sections + sticky tabs)
+24. Wire App.jsx: PistonBackground + HeroPage + EngineSection + CarGallery
+25. Test: scroll progress reads 0?1 through engine section
+26. Test: red fallback box visible in Canvas before engine loads
+27. Test: engine visible and auto-rotating at scroll 0
+28. Test: explosion triggers at scroll 0.02
+29. Deploy to Vercel or Netlify
+
+TurboNOS PRD v1.0 — Built with Claude
+TurboNOS — Product Requirements Document	CONFIDENTIAL
+
+TurboNOS Exhibition Website	Page 
+

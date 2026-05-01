@@ -26,7 +26,7 @@ export default function HeroPage() {
       {/* Layer 1: Background image with gradient overlay */}
       <div className="absolute inset-0 w-full h-[100vh]">
         <img
-          src="/public/hero.png"
+          src="/hero.PNG"
           alt="Cars exhibition"
           className="w-full h-full object-cover"
           style={{ objectFit: 'cover', opacity: 0.9 }}
