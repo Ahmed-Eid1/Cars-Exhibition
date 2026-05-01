@@ -15,9 +15,9 @@ export default function CarCard({ car, index, sectionAccentColor }) {
   useGSAP(() => {
     // Animate image sliding in
     gsap.from(imageRef.current, {
-      x: isEven ? -100 : 100,
+      x: isEven ? -150 : 150,
       opacity: 0,
-      duration: 0.9,
+      duration: 1.2,
       ease: [0.16, 1, 0.3, 1],
       scrollTrigger: {
         trigger: imageRef.current,
@@ -97,6 +97,20 @@ export default function CarCard({ car, index, sectionAccentColor }) {
             position: 'relative',
             overflow: 'hidden',
             borderRadius: '4px',
+
+            WebkitMaskImage: `
+        linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)
+      `,
+            maskImage: `
+        linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)
+      `,
+            WebkitMaskComposite: 'source-in', // Standard for Chrome/Safari to combine the two gradients
+            maskComposite: 'intersect',      // Standard for Firefox to combine the two gradients
+            // -----------------------------
+
+
           }}
         >
           <img
@@ -114,7 +128,6 @@ export default function CarCard({ car, index, sectionAccentColor }) {
             style={{
               position: 'absolute',
               inset: 0,
-              boxShadow: 'inset 0 0 45px 15px rgba(20, 20, 20, 0.95)',
               pointerEvents: 'none',
             }}
           />
@@ -159,7 +172,7 @@ export default function CarCard({ car, index, sectionAccentColor }) {
         <div
           style={{
             fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: '16px',
+            fontSize: '40px',
             color: 'rgba(255,255,255,0.45)',
             marginTop: '16px',
           }}

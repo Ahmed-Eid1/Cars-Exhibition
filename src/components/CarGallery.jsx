@@ -76,9 +76,9 @@ export default function CarGallery() {
           position: 'sticky',
           top: 0,
           zIndex: 100,
-          background: 'rgba(0,0,0,0.85)',
-          backdropFilter: 'blur(12px)',
-          padding: '20px 0',
+          background: 'transparent(10px)',
+          justifyContent: 'space-around',
+          padding: '10px 0',
           margin: 0,
         }}
       >
@@ -91,11 +91,11 @@ export default function CarGallery() {
               className="tab-title cursor-pointer"
               style={{
                 fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: '13px',
-                letterSpacing: '0.12em',
+                fontSize: '16px',
+                letterSpacing: '0.15em',
                 fontWeight: activeTab === index ? 500 : 400,
-                color: activeTab === index ? '#fff' : 'rgba(255,255,255,0.5)',
-                background: activeTab === index ? '#fff' : 'transparent',
+                color: activeTab === index ? 'black' : 'rgba(255,255,255,0.5)',
+                background: activeTab === index ? 'darkgray' : 'transparent',
                 padding: '8px 16px',
                 transition: 'color 0.3s ease, background 0.3s ease',
               }}
@@ -136,14 +136,7 @@ export default function CarGallery() {
                 zIndex: 100,
                 textAlign: 'center',
                 // Gradient background: upper half from current section, lower half from next section
-                backgroundImage: nextSection
-                  ? `linear-gradient(to bottom,
-                      url(${section.cars[0].imagePath}) 50%,
-                      url(${nextSection.cars[0].imagePath}) 50%)`
-                  : `url(${section.cars[0].imagePath})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                filter: 'blur(0.05px) brightness(1)',
+
               }}
             >
               <div
