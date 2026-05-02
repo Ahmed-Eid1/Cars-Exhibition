@@ -159,7 +159,7 @@ export default function HeroPage() {
         {/* Video */}
         <video
           ref={videoRef}
-          src="/cinematic-optimized.mp4"
+          src="https://vjfsex2gwdbfdpw9.private.blob.vercel-storage.com/cinematic-optimized.mp4"
 
           muted
           playsInline
