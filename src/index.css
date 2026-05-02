@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes chevronBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
 @keyframes yoyo {
   0%, 100% {
     transform: translateY(0);
@@ -15,6 +20,11 @@
 
 .scroll-chevron {
   animation: yoyo 1.5s infinite;
+}
+
+@keyframes chevronBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
 }
 
 body {
@@ -49,4 +59,7 @@ body {
   .car-model-name {
     font-size: 42px !important;
   }
+  video {
+  display: block;
+}
 }

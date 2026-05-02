@@ -1,147 +1,175 @@
-import { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function HeroPage() {
-  const heroRef = useRef(null);
+  const videoRef = useRef(null)
+  const sectionRef = useRef(null)
+  const overlayRef = useRef(null)
+  const logoRef = useRef(null)
+  const scrollLabelRef = useRef(null)
 
-  useGSAP(() => {
-    gsap.from(".hero-letter", {
-      x: () => (Math.random() - 0.5) * 1200,
-      y: () => (Math.random() - 0.5) * 800,
-      rotation: () => (Math.random() - 0.5) * 360,
-      opacity: 0,
-      duration: 1.2,
-      ease: "expo.out",
-      stagger: 0.06,
-    })
-  }, { scope: heroRef });
+  useEffect(() => {
+    const video = videoRef.current
+    const section = sectionRef.current
+    if (!video || !section) return
+
+    video.pause()
+    video.currentTime = 0
+
+    let rafId = null
+    let lastProgress = -1
+    let targetTime = 0
+
+    const getProgress = () => {
+      const rect = section.getBoundingClientRect()
+      const sectionHeight = section.offsetHeight - window.innerHeight
+      const scrolled = -rect.top
+      return Math.min(Math.max(scrolled / sectionHeight, 0), 1)
+    }
+
+    const updateFrame = () => {
+      if (!video.duration) return
+
+      const progress = getProgress()
+
+      if (Math.abs(progress - lastProgress) < 0.002) return
+      lastProgress = progress
+      const clampedProgress = Math.min(progress, 0.95)
+      targetTime = clampedProgress * video.duration
+
+      if (!video.seeking) {
+        video.currentTime = targetTime
+      }
+
+      if (overlayRef.current) {
+        const fadeIn = progress > 0.85 ? (progress - 0.85) / 0.15 : 0
+        const fadeOut = Math.max(0, 0.6 - progress * 0.8)
+        overlayRef.current.style.opacity = Math.max(fadeOut, fadeIn)
+      }
+      if (logoRef.current) {
+        logoRef.current.style.opacity = Math.max(0, 1 - progress * 3)
+        logoRef.current.style.transform = `translateY(${progress * -40}px)`
+      }
+      if (scrollLabelRef.current) {
+        scrollLabelRef.current.style.opacity = Math.max(0, 0.6 - progress * 4)
+      }
+    }
+
+    const handleSeeked = () => {
+      if (Math.abs(video.currentTime - targetTime) > 0.05) {
+        video.currentTime = targetTime
+      }
+    }
+
+    const handleScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(updateFrame)
+    }
+
+    video.addEventListener('seeked', handleSeeked)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId)
+      window.removeEventListener('scroll', handleScroll)
+      video.removeEventListener('seeked', handleSeeked)
+    }
+  }, [])
 
   return (
-    <div
-      ref={heroRef}
-      className="relative w-full"
-      style={{ minHeight: '100vh' }}
+    <section
+      ref={sectionRef}
+      style={{ height: '700vh', position: 'relative' }}
     >
-      {/* Layer 1: Background image with gradient overlay */}
-      <div className="absolute inset-0 w-full h-[100vh]">
-        <img
-          src="/hero.PNG"
-          alt="Cars exhibition"
-          className="w-full h-full object-cover"
-          style={{ objectFit: 'cover', opacity: 0.9 }}
-        />
-        <div
-          className="absolute inset-0 w-full h-full"
+      {/* Sticky video container */}
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
+        background: '#000'
+      }}>
+
+        {/* Video */}
+        <video
+          ref={videoRef}
+          src="/cinematic-optimized.mp4"
+
+          muted
+          playsInline
+          preload="auto"
+          onLoadedMetadata={() => { videoRef.current.pause() }}
           style={{
-            background:
-              'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.85) 100%)',
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            pointerEvents: 'none',
+            filter: 'brightness(1.3)'
           }}
         />
-      </div>
 
-      {/* Layer 2: Logo animation (top-left) */}
-      <div className="absolute top-32 left-32 z-10">
-        <div className="flex">
-          {['T', 'u', 'r', 'b', 'o', 'N', 'O', 'S'].map((char, i) => (
-            <span
-              key={i}
-              className="hero-letter inline-block font-display text-8xl text-white"
-              style={{
-                fontFamily: "'Bebas Neue', sans-serif",
-                lineHeight: 1,
-              }}
-            >
-              {char}
-            </span>
-          ))}
-        </div>
+        {/* Dark overlay — fades as scroll progresses */}
+        <div
+          ref={overlayRef}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.75) 100%)',
+            transition: 'opacity 0.1s linear',
+            pointerEvents: 'none'
+          }}
+        />
 
-      </div>
+        {/* Logo — top left, fades out on scroll */}
 
-      {/* Layer 3: Tagline and scroll indicator */}
-      <div className="absolute bottom-[18%] left-1/2 -translate-x-1/2 text-center z-10">
-        <div className="tagline">
-          <p
-            className="text-white"
-            style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: '22px',
-              letterSpacing: '0.18em',
-              color: 'rgba(255,255,255,0.75)',
-            }}
-          >
-            Where legends are forged in asphalt and fire.
-          </p>
-          <div
-            className="mt-4 mx-auto"
-            style={{
-              width: '120px',
-              height: '1px',
-              backgroundColor: 'rgba(255,255,255,0.2)',
-            }}
-          />
-        </div>
 
-        {/* Animated scroll chevron */}
-        <div className="mt-8 flex justify-center scroll-chevron">
+        {/* Scroll label — bottom center, fades out quickly */}
+        <div
+          ref={scrollLabelRef}
+          style={{
+            position: 'absolute',
+            bottom: 40,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 12,
+            transition: 'opacity 0.2s ease',
+            zIndex: 10,
+            pointerEvents: 'none'
+          }}
+        >
+          {/* Animated chevron */}
           <svg
             width="24"
-            height="24"
-            viewBox="0 0 24 24"
+            height="14"
+            viewBox="0 0 24 14"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="text-white opacity-60"
+            style={{ animation: 'chevronBob 1.4s ease-in-out infinite' }}
           >
             <path
-              d="M7 10L12 15L17 10"
-              stroke="currentColor"
+              d="M2 2L12 12L22 2"
+              stroke="white"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
+          <span style={{
+            fontFamily: '"Bebas Neue", sans-serif',
+            fontSize: 11,
+            letterSpacing: '0.4em',
+            color: 'rgba(255,255,255,0.5)'
+          }}>
+            SCROLL TO BEGIN
+          </span>
         </div>
-      </div>
 
-      {/* Bottom pulsing red circle with scroll indicator */}
-      <div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 cursor-pointer scroll-indicator"
-        onClick={() => {
-          const engineSection = document.querySelector('#engine-section');
-          if (engineSection) {
-            engineSection.scrollIntoView({ behavior: 'smooth' });
-          }
-        }}
-        style={{
-          width: '60px',
-          height: '60px',
-          backgroundColor: 'rgba(255, 0, 0, 0.9)',
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 0 20px rgba(255, 0, 0, 0.5)',
-        }}
-      >
-        <div className="pulse-ring absolute inset-0 rounded-full" />
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="text-white relative z-10"
-        >
-          <path
-            d="M7 10L12 15L17 10"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
       </div>
-    </div>
-  );
+    </section>
+  )
 }
