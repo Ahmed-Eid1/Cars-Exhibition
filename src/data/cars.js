@@ -32,12 +32,12 @@ export const carSections = [
       },
       {
         id: "am-03",
-        model: "GT40 Mk II",
-        brand: "Ford",
-        year: 1966,
+        model: "Camaro ZL1",
+        brand: "Chevrolet",
+        year: 2022,
         brief:
-          "The car Henry Ford II built specifically to humiliate Ferrari at Le Mans — and did, three years in a row. Low enough to slide under your ego, fast enough to rewrite history. The GT40 is revenge engineered into 40 inches of pure legend.",
-        imagePath: "/cars/ford-gt40.jfif",
+          "650 horsepower, carbon fiber panels, and magnetic ride control that thinks faster than you do. The Camaro ZL1 is American muscle finally grown up — track-ready, suffocatingly fast, and loud enough to wake the dead. Chevrolet didn't just build a muscle car; they built a guillotine for corner apexes.",
+        imagePath: "/cars/camaro.jfif",
         accentColor: "#0A3161",
         tag: "Le Mans Legend",
       },
@@ -74,44 +74,44 @@ export const carSections = [
       },
       {
         id: "de-02",
-        model: "RS6 Avant",
-        brand: "Audi",
-        year: 2022,
+        model: "Cayenne Turbo S",
+        brand: "Porsche",
+        year: 2016,
         brief:
-          "A station wagon that will outrun your excuses. The RS6 Avant hides 621 horsepower behind school-run respectability — quattro all-wheel drive launching it to 100 km/h before you've finished your coffee. The most dangerous estate car ever made.",
-        imagePath: "/cars/audi-rs6.jfif",
+          "The Porsche Cayenne Turbo S represents the pinnacle of performance SUVs, blending Porsche's racing heritage with everyday usability. Powered by a twin-turbo V8 engine, it delivers breathtaking acceleration and handling that defies its size. This isn't just a luxury SUV; it's a precision instrument engineered to conquer any road with poise and power.",
+        imagePath: "/cars/cayann.jfif",
         accentColor: "#BB0A21",
-        tag: "Wolf in Wool",
+        tag: "cayenne",
       },
       {
         id: "de-03",
-        model: "RS3 Sportback",
+        model: "R8 V10",
         brand: "Audi",
-        year: 2022,
+        year: 2020,
         brief:
-          "Five cylinders, one obsession. The RS3's inline-5 makes a sound that other engines can only dream about — a banshee wail that announces 400hp before the revs even climb. Small body, no mercy, quintessential Audi Sport.",
-        imagePath: "/cars/audi-rs3.jfif",
+          "The Audi R8 V10 is a symphony of German engineering and Italian passion. Powered by a naturally aspirated 5.2-liter V10 engine, it delivers 602 horsepower with a sound that's nothing short of intoxicating. it's a masterpiece of performance art, blending razor-sharp handling with everyday usability. With its Quattro all-wheel-drive system and race-bred DNA, the R8 V10 conquers asphalt like few machines on earth.",
+        imagePath: "/cars/audi-r8.jfif",
         accentColor: "#BB0A21",
-        tag: "Five-Cylinder Fury",
+        tag: "v10-engine",
       },
       {
         id: "de-04",
-        model: "E63 S AMG",
+        model: "GT 63 S 4MATIC",
         brand: "Mercedes-AMG",
         year: 2022,
         brief:
-          "The most unhinged luxury saloon in production. 612hp, 4MATIC+ all-wheel drive, and a drift mode that lets you slide a full-size executive car sideways across a runway. AMG built this for the person who needs to arrive — and arrive violently.",
-        imagePath: "/cars/amg-e63s.jfif",
+          "The Mercedes-AMG GT 63 S is where luxury meets outright aggression. It combines the sweeping, dramatic lines of a GT coupe with the raw, thunderous power of an AMG V8. This isn't just a fast car; it's a statement piece that whispers menace while delivering supercar-shaming performance. With four doors, surprising comfort, and a soundtrack that can shake buildings.",
+        imagePath: "/cars/amg-gt63s.jfif",
         accentColor: "#2D2D2D",
         tag: "Executive Madness",
       },
       {
         id: "de-05",
-        model: "300 SEL 6.8 AMG",
-        brand: "Mercedes-AMG",
+        model: "C63 AMG ",
+        brand: "Mercedes",
         year: 1971,
         brief:
-          "Before AMG had a badge, it had a red pig. The 6.8-litre hand-built monster that finished second at Spa in 1971 proved the lunatics had taken over the garage. The grandfather of every AMG ever made — a racing car that looked like your grandfather's sedan.",
+          "The AMG C63 is the definition of a wolf in sheep's clothing. Under the hood lies a handcrafted AMG V8 engine that delivers breathtaking power and an exhaust note that's pure mechanical poetry. It blends the comfort of a luxury sedan with the soul of a race car, creating a driving experience that's both refined and exhilarating.",
         imagePath: "/cars/amg-300sel.jfif",
         accentColor: "#8B0000",
         tag: "The Red Pig",
@@ -119,7 +119,7 @@ export const carSections = [
       {
         id: "de-06",
         model: "G63 AMG",
-        brand: "Mercedes-AMG",
+        brand: "Mercedes",
         year: 2023,
         brief:
           "A military vehicle handed a twin-turbo V8 and a six-figure price tag. The G63 is absurd by design — boxy, brick-like, and faster than anything that shape has any right to be. It exists because some people refuse to choose between capability and excess.",
@@ -129,12 +129,12 @@ export const carSections = [
       },
       {
         id: "de-07",
-        model: "E36 M3",
+        model: "E36 M5",
         brand: "BMW",
         year: 1995,
         brief:
-          "The purist's obsession. No turbos, no electronic safety nets — just a naturally aspirated 3.2-litre straight-six screaming to 8,000 rpm and a chassis that communicates in complete sentences. The E36 M3 is the benchmark every modern M car is still chasing.",
-        imagePath: "/cars/bmw-e36-m3.jfif",
+          "The purist's obsession. No turbos, no electronic safety nets — just a naturally aspirated 3.2-litre straight-six screaming to 8,000 rpm and a chassis that communicates in complete sentences. The E36 M5 is the benchmark every modern M car is still chasing.",
+        imagePath: "/cars/bmw-e36-m5.jfif",
         accentColor: "#0A0A0A",
         tag: "The Purist",
       },
@@ -160,14 +160,14 @@ export const carSections = [
     cars: [
       {
         id: "it-01",
-        model: "SF90 Stradale",
+        model: "Ferrari 488 Pista",
         brand: "Ferrari",
         year: 2021,
         brief:
-          "Ferrari's first plug-in hybrid is also its most violent. 986hp from a twin-turbo V8 plus three electric motors — four-wheel drive, no soul lost in translation. The SF90 is the Prancing Horse acknowledging the future and then immediately trying to outrun it.",
-        imagePath: "/cars/ferrari-sf90.jfif",
+          "The 488 Pista is Ferrari's celebration of passion, power, and precision. Featuring the most potent V8 engine Ferrari has ever built, it utilizes Formula 1-derived aerodynamics to create a driving experience that feels truly alive. It's not just a car; it's 710 horsepower of pure Italian soul, designed to leave you breathless with every curve of the road.",
+        imagePath: "/cars/ferrari-488pista.jfif",
         accentColor: "#CC0000",
-        tag: "Prancing Into Tomorrow",
+        tag: "pista",
       },
       {
         id: "it-02",
@@ -202,12 +202,12 @@ export const carSections = [
     cars: [
       {
         id: "jp-01",
-        model: "Skyline GT-R R32",
+        model: "Skyline GT-R R34",
         brand: "Nissan",
         year: 1989,
         brief:
-          "They called it Godzilla because it arrived at Bathurst and destroyed everything in its path. The RB26DETT twin-turbo and ATTESA E-TS all-wheel drive made the R32 so dominant in touring car racing they banned it. The car that made the world take Japan seriously.",
-        imagePath: "/cars/skyline-r32.jfif",
+          "They called it Godzilla because it arrived at Bathurst and destroyed everything in its path. The RB26DETT twin-turbo and ATTESA E-TS all-wheel drive made the R34 so dominant in touring car racing they banned it. The car that made the world take Japan seriously.",
+        imagePath: "/cars/skyline-r34.jfif",
         accentColor: "#C8C8C8",
         tag: "Godzilla",
       },
@@ -238,3 +238,6 @@ export const carSections = [
 ];
 
 export default carSections;
+
+
+

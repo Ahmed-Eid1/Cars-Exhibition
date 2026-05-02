@@ -144,7 +144,7 @@ export default function HeroPage() {
   return (
     <section
       ref={sectionRef}
-      style={{ height: '500vh', position: 'relative' }}
+      style={{ height: '400vh', position: 'relative' }}
     >
       {/* Sticky video container */}
       <div style={{
@@ -172,7 +172,7 @@ export default function HeroPage() {
             height: '100%',
             objectFit: 'cover',
             pointerEvents: 'none',
-            filter: 'brightness(1)'
+            filter: 'brightness(1.2) contrast(1.4) saturate(0.7) '
           }}
         />
 
@@ -233,7 +233,7 @@ export default function HeroPage() {
             SCROLL TO BEGIN
           </span>
         </div>
-        {/* DRIVE */}
+        {/* NOS */}
         <div ref={driveRef} style={{
           position: 'absolute', top: '60%', right: '8%',
           fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
@@ -241,17 +241,17 @@ export default function HeroPage() {
           color: '#ffffff', lineHeight: 1, opacity: 0, zIndex: 5,
           textShadow: '0 0 60px rgba(239,159,39,0.4), 2px 2px 0 rgba(0,0,0,0.8)',
           pointerEvents: 'none', willChange: 'transform, opacity'
-        }}>DRIVE</div>
+        }}>NOS</div>
 
-        {/* BEYOND */}
+        {/* TURBO */}
         <div ref={beyondRef} style={{
           position: 'absolute', top: 'calc(60% + clamp(80px, 13vw, 120px))', right: '8%',
           fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
           fontSize: 'clamp(80px, 13vw, 150px)',
-          color: '#EF9F27', lineHeight: 1, opacity: 0, zIndex: 5,
+          color: 'darkorange', lineHeight: 1, opacity: 0, zIndex: 5,
           textShadow: '0 0 80px rgba(239,159,39,0.8)',
           pointerEvents: 'none', willChange: 'transform, opacity'
-        }}>BEYOND</div>
+        }}>TURBO</div>
 
         {/* BUILT FOR SPEED */}
         <div ref={builtRef} style={{
@@ -279,7 +279,7 @@ export default function HeroPage() {
           pointerEvents: 'none'
         }}>EST. 2026</div>
 
-        {/* CONTROL */}
+        {/* CARS */}
         <div ref={controlRef} style={{
           position: 'absolute', bottom: '20%', right: '2%',
           fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
@@ -287,30 +287,29 @@ export default function HeroPage() {
           color: '#ffffff', lineHeight: 1, opacity: 0, zIndex: 5,
           textShadow: '3px 3px 0 rgba(0,0,0,0.9)',
           pointerEvents: 'none', willChange: 'transform, opacity'
-        }}>CONTROL</div>
+        }}>CARS</div>
 
-        {/* THE CHAOS */}
+        {/* THE EXHIBITION */}
         <div ref={chaosRef} style={{
           position: 'absolute',
           bottom: 'calc(15% - clamp(60px, 10vw, 80px) * 0.9)',
           right: '3%',
           fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
           fontSize: 'clamp(60px, 10vw, 120px)',
-          fontStyle: 'italic', color: '#EF9F27', lineHeight: 1, opacity: 0, zIndex: 5,
-          textShadow: '0 0 60px rgba(226,75,74,0.7), 3px 3px 0 rgba(0,0,0,0.9)',
-          pointerEvents: 'none', willChange: 'transform, opacity'
-        }}>THE CHAOS</div>
+          fontStyle: 'italic', color: 'darkorange', lineHeight: 1, opacity: 0, zIndex: 5,
+          textShadow: '0 0 80px red',
+        }}>EXHIBITION</div>
 
         {/* POWER. PRECISION. DOMINANCE. */}
         <div ref={taglineRef} style={{
           position: 'absolute',
-          bottom: 'calc(25% - clamp(60px, 10vw, 120px) * 1.85)',
+          bottom: 'calc(30% - clamp(60px, 10vw, 120px) * 1.85)',
           right: '6%',
           fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
           fontSize: 13, letterSpacing: '0.25em',
           color: 'rgba(255,255,255,0.7)', opacity: 0, zIndex: 5,
           pointerEvents: 'none'
-        }}>POWER. PRECISION. DOMINANCE.</div>
+        }}>SAVAGERY. LUXURY. POWER.</div>
 
       </div>
     </section>
