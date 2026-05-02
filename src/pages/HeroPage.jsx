@@ -8,6 +8,14 @@ export default function HeroPage() {
   const logoRef = useRef(null)
   const scrollLabelRef = useRef(null)
 
+  const driveRef = useRef(null)
+  const beyondRef = useRef(null)
+  const builtRef = useRef(null)
+  const estRef = useRef(null)
+  const controlRef = useRef(null)
+  const chaosRef = useRef(null)
+  const taglineRef = useRef(null)
+
   useEffect(() => {
     const video = videoRef.current
     const section = sectionRef.current
@@ -53,6 +61,63 @@ export default function HeroPage() {
       if (scrollLabelRef.current) {
         scrollLabelRef.current.style.opacity = Math.max(0, 0.6 - progress * 4)
       }
+
+      const clamp = (v, a, b) => Math.min(Math.max(v, a), b)
+      const inv = (a, b, v) => clamp((v - a) / (b - a), 0, 1)
+      const lerp = (a, b, t) => a + (b - a) * t
+
+      // DRIVE — slides in from right
+      if (driveRef.current) {
+        const flyIn = inv(0, 0.15, progress)
+        const fadeOut = inv(0.25, 0.38, progress)
+        driveRef.current.style.transform = `translateX(${lerp(120, 0, flyIn)}vw)`
+        driveRef.current.style.opacity = flyIn > 0 ? Math.max(0, 1 - fadeOut) : 0
+      }
+
+      // BEYOND — rises from bottom
+      if (beyondRef.current) {
+        const flyIn = inv(0.04, 0.20, progress)
+        const fadeOut = inv(0.28, 0.40, progress)
+        beyondRef.current.style.transform = `translateY(${lerp(120, 0, flyIn)}px)`
+        beyondRef.current.style.opacity = flyIn > 0 ? Math.max(0, 1 - fadeOut) : 0
+      }
+
+      // BUILT FOR SPEED — fade only
+      if (builtRef.current) {
+        const show = inv(0.63, 0.72, progress)
+        const hide = inv(0.85, 0.94, progress)
+        builtRef.current.style.opacity = Math.max(0, Math.min(show, 1 - hide))
+      }
+
+      // EST. 2024 — fade only
+      if (estRef.current) {
+        const show = inv(0.65, 0.74, progress)
+        const hide = inv(0.85, 0.94, progress)
+        estRef.current.style.opacity = Math.max(0, Math.min(show, 1 - hide))
+      }
+
+      // CONTROL — slides in from right
+      if (controlRef.current) {
+        const flyIn = inv(0.65, 0.76, progress)
+        const hide = inv(0.85, 0.94, progress)
+        controlRef.current.style.transform = `translateX(${lerp(100, 0, flyIn)}vw)`
+        controlRef.current.style.opacity = flyIn > 0 ? Math.max(0, 1 - hide) : 0
+      }
+
+      // THE CHAOS — rises from bottom
+      if (chaosRef.current) {
+        const flyIn = inv(0.68, 0.79, progress)
+        const hide = inv(0.85, 0.94, progress)
+        chaosRef.current.style.transform = `translateY(${lerp(120, 0, flyIn)}px)`
+        chaosRef.current.style.opacity = flyIn > 0 ? Math.max(0, 1 - hide) : 0
+      }
+
+      // POWER. PRECISION. DOMINANCE. — fade only
+      if (taglineRef.current) {
+        const show = inv(0.74, 0.82, progress)
+        const hide = inv(0.86, 0.94, progress)
+        taglineRef.current.style.opacity = Math.max(0, Math.min(show, 1 - hide))
+      }
     }
 
     const handleSeeked = () => {
@@ -79,7 +144,7 @@ export default function HeroPage() {
   return (
     <section
       ref={sectionRef}
-      style={{ height: '700vh', position: 'relative' }}
+      style={{ height: '500vh', position: 'relative' }}
     >
       {/* Sticky video container */}
       <div style={{
@@ -107,7 +172,7 @@ export default function HeroPage() {
             height: '100%',
             objectFit: 'cover',
             pointerEvents: 'none',
-            filter: 'brightness(1.3)'
+            filter: 'brightness(1)'
           }}
         />
 
@@ -168,6 +233,84 @@ export default function HeroPage() {
             SCROLL TO BEGIN
           </span>
         </div>
+        {/* DRIVE */}
+        <div ref={driveRef} style={{
+          position: 'absolute', top: '60%', right: '8%',
+          fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
+          fontSize: 'clamp(80px, 13vw, 130px)',
+          color: '#ffffff', lineHeight: 1, opacity: 0, zIndex: 5,
+          textShadow: '0 0 60px rgba(239,159,39,0.4), 2px 2px 0 rgba(0,0,0,0.8)',
+          pointerEvents: 'none', willChange: 'transform, opacity'
+        }}>DRIVE</div>
+
+        {/* BEYOND */}
+        <div ref={beyondRef} style={{
+          position: 'absolute', top: 'calc(60% + clamp(80px, 13vw, 120px))', right: '8%',
+          fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
+          fontSize: 'clamp(80px, 13vw, 150px)',
+          color: '#EF9F27', lineHeight: 1, opacity: 0, zIndex: 5,
+          textShadow: '0 0 80px rgba(239,159,39,0.8)',
+          pointerEvents: 'none', willChange: 'transform, opacity'
+        }}>BEYOND</div>
+
+        {/* BUILT FOR SPEED */}
+        <div ref={builtRef} style={{
+          position: 'absolute', top: 28, left: 50,
+          fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
+          fontSize: 13, letterSpacing: '0.22em',
+          color: 'lightgray', opacity: 0, zIndex: 10,
+          display: 'flex', alignItems: 'center', gap: 10,
+          pointerEvents: 'none'
+        }}>
+          <svg width="32" height="12" viewBox="0 0 32 12">
+            {[0, 1, 2, 3, 4, 5, 6].map(i => (
+              <rect key={i} x={i * 5} y={0} width={3} height={12} fill="white" opacity={0.7} />
+            ))}
+          </svg>
+          BUILT FOR SPEED
+        </div>
+
+        {/* EST. 2024 */}
+        <div ref={estRef} style={{
+          position: 'absolute', top: 28, right: 32,
+          fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
+          fontSize: 13, letterSpacing: '0.22em',
+          color: 'lightgray', opacity: 0, zIndex: 10,
+          pointerEvents: 'none'
+        }}>EST. 2026</div>
+
+        {/* CONTROL */}
+        <div ref={controlRef} style={{
+          position: 'absolute', bottom: '20%', right: '2%',
+          fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
+          fontSize: 'clamp(40px, 10vw, 100px)',
+          color: '#ffffff', lineHeight: 1, opacity: 0, zIndex: 5,
+          textShadow: '3px 3px 0 rgba(0,0,0,0.9)',
+          pointerEvents: 'none', willChange: 'transform, opacity'
+        }}>CONTROL</div>
+
+        {/* THE CHAOS */}
+        <div ref={chaosRef} style={{
+          position: 'absolute',
+          bottom: 'calc(15% - clamp(60px, 10vw, 80px) * 0.9)',
+          right: '3%',
+          fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
+          fontSize: 'clamp(60px, 10vw, 120px)',
+          fontStyle: 'italic', color: '#EF9F27', lineHeight: 1, opacity: 0, zIndex: 5,
+          textShadow: '0 0 60px rgba(226,75,74,0.7), 3px 3px 0 rgba(0,0,0,0.9)',
+          pointerEvents: 'none', willChange: 'transform, opacity'
+        }}>THE CHAOS</div>
+
+        {/* POWER. PRECISION. DOMINANCE. */}
+        <div ref={taglineRef} style={{
+          position: 'absolute',
+          bottom: 'calc(25% - clamp(60px, 10vw, 120px) * 1.85)',
+          right: '6%',
+          fontFamily: '"RaceFont", "Bebas Neue", sans-serif',
+          fontSize: 13, letterSpacing: '0.25em',
+          color: 'rgba(255,255,255,0.7)', opacity: 0, zIndex: 5,
+          pointerEvents: 'none'
+        }}>POWER. PRECISION. DOMINANCE.</div>
 
       </div>
     </section>
